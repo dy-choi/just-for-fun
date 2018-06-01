@@ -44,19 +44,28 @@ def filter_files(ext1, ext2, my_dir):
     extra_ext1 = ext1_set - ext2_set
     extra_ext2 = ext2_set - ext1_set
     
-    return extra_ext1, extra_ext2    
+    return extra_ext1, extra_ext2
+
+def remove_pairless_files(ext1, ext2, my_dir):
+    '''
+    remove all files that do not have a pair,
+    i.e. has ext1 but not ext2 or vice versa.
+    returns the number of files deleted from each set of files (filtered by extension).
+    '''
+    set1, set2 = filter_files(ext1, ext2, my_dir)
+    return remove_file(my_dir, set1, ext1), remove_file(my_dir, set2, ext2)
 
 def main():
-    # directory - remember to change date
-    path, _ = os.path.split(os.path.realpath(__file__))
-    my_dir = path + "/180531 NY/"
-
+    # define extensions
     ext1, ext2 = ".RAF", ".JPG"
-    raf, jpg = filter_files(ext1, ext2, my_dir)
+    
+    # define directory
+    path, _ = os.path.split(os.path.realpath(__file__))
+    my_dir = path + "/180530"
 
-    # remove files
-    num_rem_ext1 = remove_file(my_dir, raf, ext1)
-    num_rem_ext2 = remove_file(my_dir, jpg, ext2)
+    num_rem_ext1, num_rem_ext2 = remove_pairless_files(ext1, ext2, my_dir)
+
+    # print resulting number of file removals
     print("Number of", ext1, "removed :", num_rem_ext1)
     print("Number of", ext2, "removed :", num_rem_ext2)
 
