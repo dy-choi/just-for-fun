@@ -61,14 +61,13 @@ def main():
     
     # define directory
     path, _ = os.path.split(os.path.realpath(__file__))
-    my_dir = path + "/180530"
+    my_dir = path + "/180530/"
 
     num_rem_ext1, num_rem_ext2 = remove_pairless_files(ext1, ext2, my_dir)
 
     # print resulting number of file removals
     print("Number of", ext1, "removed :", num_rem_ext1)
     print("Number of", ext2, "removed :", num_rem_ext2)
-
 
 if __name__ == "__main__":
     main()
