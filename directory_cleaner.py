@@ -8,7 +8,7 @@ date: 2018. 5. 31.
 author: dy-choi
 '''
 
-import os
+import os, sys
 
 def remove_file(my_dir, s, ext):
     '''
@@ -56,12 +56,13 @@ def remove_pairless_files(ext1, ext2, my_dir):
     return remove_file(my_dir, set1, ext1), remove_file(my_dir, set2, ext2)
 
 def main():
+    # command line run example: python folder_cleaner.py sample-folder-name
     # define extensions
     ext1, ext2 = ".RAF", ".JPG"
     
     # define directory
     path, _ = os.path.split(os.path.realpath(__file__))
-    my_dir = path + "/180530/"
+    my_dir = path + "/" + argv[1] + "/"
 
     num_rem_ext1, num_rem_ext2 = remove_pairless_files(ext1, ext2, my_dir)
 
