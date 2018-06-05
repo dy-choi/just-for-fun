@@ -4,6 +4,8 @@ i.e., both .RAW and .JPG. Assumption is that the extension is four characters,
 including the period.
 
 
+command line run example: python folder_cleaner.py sample-folder-name
+
 date: 2018. 5. 31.
 author: dy-choi
 '''
@@ -56,19 +58,26 @@ def remove_pairless_files(ext1, ext2, my_dir):
     return remove_file(my_dir, set1, ext1), remove_file(my_dir, set2, ext2)
 
 def main():
-    # command line run example: python folder_cleaner.py sample-folder-name
+    # check number of command-line arguments
+    if len(sys.argv) < 1:
+        print('directory_cleaner.py << directory-name >>')
+        exit(1)
+    
     # define extensions
     ext1, ext2 = ".RAF", ".JPG"
-    
-    # define directory
-    path, _ = os.path.split(os.path.realpath(__file__))
-    my_dir = path + "/" + argv[1] + "/"
 
-    num_rem_ext1, num_rem_ext2 = remove_pairless_files(ext1, ext2, my_dir)
+    try:
+        # define directory
+        path, _ = os.path.split(os.path.realpath(__file__))
+        my_dir = path + "/" + sys.argv[1] + "/"
 
-    # print resulting number of file removals
-    print("Number of", ext1, "removed :", num_rem_ext1)
-    print("Number of", ext2, "removed :", num_rem_ext2)
+        num_rem_ext1, num_rem_ext2 = remove_pairless_files(ext1, ext2, my_dir)
+
+        # print resulting number of file removals
+        print("Number of", ext1, "removed :", num_rem_ext1)
+        print("Number of", ext2, "removed :", num_rem_ext2)
+    except FileNotFoundError:
+        print("Error : '", sys.argv[1], "'", "is not a valid file name.")
 
 if __name__ == "__main__":
     main()
